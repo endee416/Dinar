@@ -22,6 +22,7 @@ app.get("/", (req, res) => {
 
 // 3. The delete endpoint
 app.post("/deleteMedia", async (req, res) => {
+  console.log("Incoming delete request, public_id:", req.body.public_id);
   try {
     const { public_id } = req.body;
     if (!public_id) {
@@ -31,6 +32,7 @@ app.post("/deleteMedia", async (req, res) => {
     const result = await cloudinary.uploader.destroy(public_id);
     // result might look like: { result: "ok" } on success
     res.json(result);
+    console.log("Cloudinary destroy result:", result);
   } catch (err) {
     console.error("Error deleting media:", err);
     res.status(500).json({ error: "Failed to delete media" });
