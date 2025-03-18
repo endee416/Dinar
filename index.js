@@ -29,7 +29,8 @@ app.post("/deleteMedia", async (req, res) => {
       return res.status(400).json({ error: "public_id is required" });
     }
     // Use Cloudinary Admin API to delete by public_id
-    const result = await cloudinary.uploader.destroy(public_id);
+    const public_id2 = public_id.trim();
+    const result = await cloudinary.uploader.destroy(public_id2);
     // result might look like: { result: "ok" } on success
     res.json(result);
     console.log("Cloudinary destroy result:", result);
